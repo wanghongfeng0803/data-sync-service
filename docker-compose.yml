@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    image: data-sync-service:1.0.0
+    container_name: data-sync-service
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      TZ: ${TZ:-Asia/Shanghai}
+      DB_PATH: /app/data/sync.db
+      SYNC_CONCURRENCY: ${SYNC_CONCURRENCY:-4}
+      SYNC_DEFAULT_MAX_ATTEMPTS: ${SYNC_DEFAULT_MAX_ATTEMPTS:-5}
+      TRANSFORM_WORKERS: ${TRANSFORM_WORKERS:-2}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
