@@ -1,0 +1,14 @@
+{
+  "name": "data-sync-service",
+  "version": "1.0.0",
+  "description": "数据同步服务（data-sync-service）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}
